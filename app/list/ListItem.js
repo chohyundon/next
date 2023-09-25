@@ -3,10 +3,9 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import DetailLink from "./detailLink";
+import { Coming_Soon } from "next/font/google";
 
 export default async function ListItem({ result }) {
-  useEffect(() => {});
-
   return (
     <div>
       {result.map((item, index) => (
@@ -17,9 +16,14 @@ export default async function ListItem({ result }) {
           <DetailLink />
           <span
             onClick={() => {
-              fetch("/api/test").then(() => {
-                console.log(123);
-              });
+              fetch("/api/post/delete", {
+                method: "DELETE",
+                body: item._id,
+              })
+                .then((res) => {
+                  return res.json();
+                })
+                .then((res) => console.log(res));
             }}
           >
             🗑️
