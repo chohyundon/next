@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import DetailLink from "./detailLink";
-import { Coming_Soon } from "next/font/google";
 
 export default async function ListItem({ result }) {
   return (
@@ -15,7 +14,7 @@ export default async function ListItem({ result }) {
           </Link>
           <DetailLink />
           <span
-            onClick={() => {
+            onClick={(e) => {
               fetch("/api/post/delete", {
                 method: "DELETE",
                 body: item._id,
@@ -23,7 +22,12 @@ export default async function ListItem({ result }) {
                 .then((res) => {
                   return res.json();
                 })
-                .then((res) => console.log(res));
+                .then(() => {
+                  e.target.parentElement.style.opacity = 0;
+                  setTimeout(() => {
+                    e.target.parentElement.style.display = "none";
+                  }, 1000);
+                });
             }}
           >
             🗑️
