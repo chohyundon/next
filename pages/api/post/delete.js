@@ -14,7 +14,7 @@ export default async function Delete(요청, 응답) {
       .collection("post")
       .findOne({ _id: new ObjectId(요청.body) });
 
-    if (user.author == session.user.email) {
+    if (user.author == session.user.email || session.user.role == "admin") {
       let result = await db
         .collection("post")
         .deleteOne({ _id: new ObjectId(요청.body) });
