@@ -18,7 +18,6 @@ export default async function ListItem({ result }) {
               fetch("/api/post/delete", {
                 method: "DELETE",
                 body: item._id,
-                author: item.author,
               })
                 .then((res) => {
                   return res.json();
